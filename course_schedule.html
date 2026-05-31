@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جدول المقررات – الفصل الصيفي 48/47</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: #f0f4f8;
+    color: #1a2332;
+    direction: rtl;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, #0a4d3c 0%, #0d7b65 55%, #1aa382 100%);
+    color: #fff;
+    padding: 3rem 2rem 4.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    top: -140px; left: -100px;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    bottom: -120px; right: -60px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #cef5ea;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .hero p {
+    font-size: 1rem;
+    opacity: 0.75;
+    font-weight: 300;
+  }
+
+  /* ── STATS STRIP ── */
+  .stats-wrap {
+    max-width: 860px;
+    margin: -2rem auto 0;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 10;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-top: 3px solid transparent;
+  }
+  .stat-card.green  { border-top-color: #0d7b65; }
+  .stat-card.blue   { border-top-color: #2563eb; }
+  .stat-card.violet { border-top-color: #7c3aed; }
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .stat-card.green  .stat-num { color: #0d7b65; }
+  .stat-card.blue   .stat-num { color: #2563eb; }
+  .stat-card.violet .stat-num { color: #7c3aed; }
+  .stat-label {
+    font-size: 0.78rem;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 860px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    background: #fff;
+    color: #1a2332;
+    transition: border-color 0.2s;
+    direction: rtl;
+  }
+  .search-wrap input:focus {
+    outline: none;
+    border-color: #0d7b65;
+    box-shadow: 0 0 0 3px rgba(13,123,101,0.1);
+  }
+  .search-wrap input::placeholder { color: #a0aec0; }
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 1.1rem;
+    pointer-events: none;
+  }
+
+  /* ── FILTER TABS ── */
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .filter-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    color: #4b5563;
+  }
+  .filter-btn:hover { border-color: #0d7b65; color: #0d7b65; }
+  .filter-btn.active {
+    background: #0d7b65;
+    border-color: #0d7b65;
+    color: #fff;
+  }
+
+  /* ── TABLE ── */
+  .table-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  thead th {
+    background: #f8fafb;
+    padding: 0.85rem 1rem;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1.5px solid #e9edf2;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+    animation: fadeIn 0.35s ease both;
+  }
+  tbody tr:hover { background: #f8fffe; }
+  tbody tr:last-child { border-bottom: none; }
+  td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+  }
+
+  /* ── COURSE CODE BADGE ── */
+  .code-badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 7px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .dept-MATH { background: #ede9fe; color: #5b21b6; }
+  .dept-GE   { background: #dbeafe; color: #1d4ed8; }
+  .dept-ME   { background: #dcfce7; color: #15803d; }
+  .dept-CE   { background: #ffedd5; color: #c2410c; }
+  .dept-EE   { background: #fce7f3; color: #9d174d; }
+  .dept-CSC  { background: #f0fdf4; color: #166534; }
+  .dept-PHYS { background: #e0f2fe; color: #0369a1; }
+  .dept-STAT { background: #fef9c3; color: #854d0e; }
+  .dept-ECON { background: #fef3c7; color: #92400e; }
+  .dept-MGMT { background: #f3e8ff; color: #6b21a8; }
+
+  .course-name {
+    font-weight: 500;
+    color: #1a2332;
+    font-size: 0.9rem;
+  }
+
+  /* ── INSTRUCTOR ── */
+  .instructor {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .instructor-name {
+    font-size: 0.82rem;
+    color: #374151;
+    font-weight: 400;
+  }
+
+  /* ── TIME BADGE ── */
+  .time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .time-08 { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+  .time-10 { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .time-12 { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+  .time-14 { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #9ca3af;
+    font-size: 0.8rem;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty {
+    padding: 3rem;
+    text-align: center;
+    color: #9ca3af;
+    display: none;
+  }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .hero { background: #0d7b65 !important; -webkit-print-color-adjust: exact; }
+    .search-wrap, .filters { display: none; }
+    .table-card { box-shadow: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.5rem; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats .stat-card:last-child { grid-column: span 2; }
+    td, th { padding: 0.65rem 0.6rem; }
+    .instructor-name { font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">الفصل الصيفي 48/47</div>
+  <h1>جدول المقررات الدراسية</h1>
+  <p>قائمة المقررات المتاحة مع أسماء المحاضرين والأوقات</p>
+</div>
+
+<div class="stats-wrap">
+  <div class="stats">
+    <div class="stat-card green">
+      <div class="stat-num">22</div>
+      <div class="stat-label">إجمالي المقررات</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num">13</div>
+      <div class="stat-label">محاضر</div>
+    </div>
+    <div class="stat-card violet">
+      <div class="stat-num">4</div>
+      <div class="stat-label">أوقات دراسية</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="ابحث عن مقرر أو محاضر..." oninput="filterTable()">
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="setFilter('all', this)">الكل</button>
+    <button class="filter-btn" onclick="setFilter('08', this)">8:00 ص – 9:40 ص</button>
+    <button class="filter-btn" onclick="setFilter('10', this)">10:00 ص – 11:40 ص</button>
+    <button class="filter-btn" onclick="setFilter('12', this)">12:00 م – 1:40 م</button>
+    <button class="filter-btn" onclick="setFilter('14', this)">2:00 م – 3:40 م</button>
+  </div>
+
+  <div class="table-card">
+    <table id="courseTable">
+      <thead>
+        <tr>
+          <th>رمز المقرر</th>
+          <th>اسم المقرر</th>
+          <th>المحاضر</th>
+          <th>الوقت</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty" id="emptyState">
+      <div class="empty-icon">📭</div>
+      <p>لا توجد نتائج مطابقة</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  الفصل الصيفي 48/47 &nbsp;·&nbsp; جميع الحقوق محفوظة
+</div>
+
+<script>
+const avatarColors = [
+  '#0d7b65','#2563eb','#7c3aed','#c2410c','#9d174d',
+  '#0369a1','#854d0e','#166534','#1d4ed8','#6b21a8','#15803d','#c2410c','#0891b2'
+];
+
+const courses = [
+  { code:'MATH105', dept:'MATH', name:'حساب التفاضل',                        instructor:'رجب السيد ربيعي السيد',          time:'14', timeLabel:'2:00 م – 3:40 م' },
+  { code:'MATH106', dept:'MATH', name:'حساب التكامل',                         instructor:'حماد اقبال شيرازي حشمت اقبال',    time:'14', timeLabel:'2:00 م – 3:40 م' },
+  { code:'MATH107', dept:'MATH', name:'الجبر الخطي والهندسة التحليلية',       instructor:'حسين زين قرني حسين',              time:'08', timeLabel:'8:00 ص – 9:40 ص' },
+  { code:'MATH203', dept:'MATH', name:'حساب التفاضل والتكامل',                instructor:'رضوان محمد اكرم ولي محمد اكرم',  time:'14', timeLabel:'2:00 م – 3:40 م' },
+  { code:'MATH208', dept:'MATH', name:'المعادلات التفاضلية',                  instructor:'رجب السيد ربيعي السيد',          time:'12', timeLabel:'12:00 م – 1:40 م' },
+  { code:'GE 201',  dept:'GE',   name:'استاتيكا',                             instructor:'حسين زين قرني حسين',              time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'GE 202',  dept:'GE',   name:'الديناميكا',                           instructor:'وليد حسن الجرايحى نصر',           time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'GE 210',  dept:'GE',   name:'الميكانيكا الهندسية',                  instructor:'اسامه محمد عرفان احمد',           time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'GE 412',  dept:'GE',   name:'الهندسة القيمية',                      instructor:'فواز علي عويض الحربي',            time:'08', timeLabel:'8:00 ص – 9:40 ص' },
+  { code:'ME 340',  dept:'ME',   name:'التصميم الميكانيكي (1)',               instructor:'وليد حسن الجرايحى نصر',           time:'08', timeLabel:'8:00 ص – 9:40 ص' },
+  { code:'ME 372',  dept:'ME',   name:'الديناميكا الحرارية (2)',              instructor:'هشام عبد الغفار عثمان بخيت',      time:'12', timeLabel:'12:00 م – 1:40 م' },
+  { code:'ME 385',  dept:'ME',   name:'ميكانيكا الموالع',                     instructor:'هشام عبد الغفار عثمان بخيت',      time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'CE 363',  dept:'CE',   name:'هندسة الأساسات',                       instructor:'مذر بكري حسن المكي',              time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'EE 201',  dept:'EE',   name:'أساسيات الدوائر الكهربائية',           instructor:'رضوان محمد اكرم ولي محمد اكرم',  time:'12', timeLabel:'12:00 م – 1:40 م' },
+  { code:'EE 203',  dept:'EE',   name:'الكهرومغناطيسية',                      instructor:'سيد عثمان مدبولي عثمان',          time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'EE 301',  dept:'EE',   name:'تحليل الإشارات والنظم',                instructor:'حماد اقبال شيرازي حشمت اقبال',    time:'12', timeLabel:'12:00 م – 1:40 م' },
+  { code:'CSC 209', dept:'CSC',  name:'برمجة الحاسب الآلي',                   instructor:'سيد عثمان مدبولي عثمان',          time:'08', timeLabel:'8:00 ص – 9:40 ص' },
+  { code:'PHYS115', dept:'PHYS', name:'فيزياء (2)',                            instructor:'اسامه محمد عرفان احمد',           time:'12', timeLabel:'12:00 م – 1:40 م' },
+  { code:'STAT328', dept:'STAT', name:'الاحتمالات والإحصاء',                   instructor:'مذر بكري حسن المكي',              time:'12', timeLabel:'12:00 م – 1:40 م' },
+  { code:'ECON401', dept:'ECON', name:'الاقتصاد الهندسي',                     instructor:'فواز علي عويض الحربي',            time:'10', timeLabel:'10:00 ص – 11:40 ص' },
+  { code:'MGMT402', dept:'MGMT', name:'إدارة المشاريع',                        instructor:'عبدالله احمد صالح الغفيص',        time:'14', timeLabel:'2:00 م – 3:40 م' },
+  { code:'MGMT411', dept:'MGMT', name:'تنمية المهارات الإدارية',               instructor:'عبدالله احمد صالح الغفيص',        time:'12', timeLabel:'12:00 م – 1:40 م' },
+];
+
+const instructorColors = {};
+let colorIdx = 0;
+function getInstructorColor(name) {
+  if (!instructorColors[name]) {
+    instructorColors[name] = avatarColors[colorIdx++ % avatarColors.length];
+  }
+  return instructorColors[name];
+}
+function getInitials(name) {
+  const parts = name.trim().split(' ');
+  return parts.length >= 2 ? parts[0][0] + parts[1][0] : parts[0].substring(0,2);
+}
+
+let activeFilter = 'all';
+let searchQuery  = '';
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  const filtered = courses.filter(c => {
+    const matchTime   = activeFilter === 'all' || c.time === activeFilter;
+    const matchSearch = !searchQuery
+      || c.name.includes(searchQuery)
+      || c.instructor.includes(searchQuery)
+      || c.code.includes(searchQuery);
+    return matchTime && matchSearch;
+  });
+
+  document.getElementById('emptyState').style.display = filtered.length ? 'none' : 'block';
+
+  filtered.forEach((c, i) => {
+    const color = getInstructorColor(c.instructor);
+    const tr = document.createElement('tr');
+    tr.style.animationDelay = (i * 0.04) + 's';
+    tr.innerHTML = `
+      <td><span class="code-badge dept-${c.dept}">${c.code}</span></td>
+      <td><span class="course-name">${c.name}</span></td>
+      <td>
+        <div class="instructor">
+          <div class="avatar" style="background:${color}">${getInitials(c.instructor)}</div>
+          <span class="instructor-name">${c.instructor}</span>
+        </div>
+      </td>
+      <td><span class="time-badge time-${c.time}">${c.timeLabel}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function setFilter(val, btn) {
+  activeFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function filterTable() {
+  searchQuery = document.getElementById('searchInput').value.trim();
+  renderTable();
+}
+
+renderTable();
+</script>
+</body>
+</html>
